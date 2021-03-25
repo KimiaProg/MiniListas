@@ -1,6 +1,6 @@
 package clases;
 
-public interface MiniList {
+public interface MiniList extends Iterable {
 
 	/**
 	 * Añadir objeto a la lista
@@ -34,15 +34,6 @@ public interface MiniList {
 	public boolean delete(int posicion);
 
 	/**
-	 * Añade el elmento recibido en la lista en la posicion indicada
-	 * 
-	 * @param elemento
-	 * @param posicion
-	 * @return Devuelve true o false si se ha añadido correctamente
-	 */
-	public boolean add(Object elemento, int posicion);
-
-	/**
 	 * @param elemento
 	 * @return Te devuelve la posicion del eleemnto de la lista
 	 */
@@ -57,4 +48,16 @@ public interface MiniList {
 	 * Borra los elementos de la lista
 	 */
 	public void clear();
+
+	/**
+	 * Cambia el elemento que está en la posición que se pasa como parametro se
+	 * indica posición a cambiar se pasa elemento a introducir verdadero si se
+	 * cambió, falso si no
+	 */
+	public boolean set(Object element, int posicion);
+
+	/**
+	 * Devuelve el elemento de la posición que se pasa como parámetro
+	 */
+	public Object get(int posicion);
 }

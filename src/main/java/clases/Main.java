@@ -4,8 +4,13 @@
 package clases;
 
 public class Main {
-    
-    public static void main (String [] args) {
-    	System.out.println("Hola Mundo");
-    }
+
+	public static void main(String[] args) {
+		Persona persona= new Persona("Kimi","fdf",20);
+		MiniList list= new CList();
+		list.add(persona);
+		if(list.get(0)==persona) {
+			System.out.println("eefe");
+		}
+	}
 }
