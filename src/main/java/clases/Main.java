@@ -35,7 +35,6 @@ public class Main {
 		
 		System.out.println(list.contains(persona3));
 		list.mostrar();
-		//list.set(persona3, 3);
 		list.delete(persona3);
 		System.out.println("");
 		

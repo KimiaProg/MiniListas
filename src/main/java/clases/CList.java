@@ -144,13 +144,9 @@ public class CList implements MiniList {
 	@Override
 	public void mostrar() {
 		Container auxList = miLista;
-		int cont = -1;
 		while (auxList != null) {
-			cont++;
 			System.out.println(auxList.obj.toString());
-
 			auxList = auxList.next;
-
 		}
 	}
 
