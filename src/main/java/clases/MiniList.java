@@ -1,6 +1,6 @@
 package clases;
 
-public interface MiniList extends Iterable {
+public interface MiniList {
 
 	/**
 	 * Añadir objeto a la lista
@@ -60,4 +60,5 @@ public interface MiniList extends Iterable {
 	 * Devuelve el elemento de la posición que se pasa como parámetro
 	 */
 	public Object get(int posicion);
+	public void mostrar();
 }

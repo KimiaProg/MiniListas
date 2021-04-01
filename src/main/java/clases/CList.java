@@ -1,109 +1,170 @@
 package clases;
 
-import java.util.Iterator;
-
 public class CList implements MiniList {
-	
-	private Object obj=null;
-	private Container miLista=null;
 
+	private Object obj = null;
+	private Container miLista = null;
+
+	// <------------------------------------------------------->
 	@Override
 	public boolean add(Object elemento) throws NullPointerException {
-		if(elemento==null) {
+		if (elemento == null) {
 			throw new NullPointerException();
+		} else {
+			if (miLista == null) {
+				miLista = new Container(elemento, miLista);
+			} else {
+				Container auxList = miLista;
+				Container anteriorList = auxList;
+				while (auxList != null) {
+					anteriorList = auxList;
+					auxList = auxList.next;
+				}
+				anteriorList.next = new Container(elemento, null);
+			}
 		}
-		obj=elemento;
-		//return this.set((this.size()) + 1, elemento);
 		return true;
 	}
 
+	// <------------------------------------------------------->
 	@Override
 	public boolean contains(Object elemento) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(Object elemento) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(int posicion) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public int posicion(Object elemento) {
-		int devolver = 0;
-		int cont = 0;
-		for (Object ob : this) {
-			if (elemento == ob) {
-				devolver = cont;
+		boolean devolver = false;
+		Container auxList = miLista;
+		while (auxList != null) {
+			if (auxList.obj == elemento) {
+				devolver = true;
 				break;
 			}
-			cont++;
+			auxList = auxList.next;
 		}
 		return devolver;
 	}
 
+	// <------------------------------------------------------->
+	@Override
+	public boolean delete(Object elemento) {
+		Container auxList = miLista;
+		Container anteriorList = miLista;
+
+		while (elemento != auxList.obj) {
+			anteriorList = auxList;
+			auxList = auxList.next;
+		}
+		anteriorList.next = auxList.next;
+		return true;
+	}
+
+	// <------------------------------------------------------->
+	@Override
+	public boolean delete(int posicion) {
+		Container auxList = miLista;
+		Container anteriorList = miLista;
+		int cont = 0;
+		while (posicion != cont) {
+			anteriorList = auxList;
+			auxList = auxList.next;
+			cont++;
+		}
+		anteriorList.next = auxList.next;
+		return true;
+	}
+
+	// <------------------------------------------------------->
+	@Override
+	public int posicion(Object elemento) {
+		int devolver = -1;
+		Container auxList = miLista;
+		int cont = -1;
+		while (auxList != null) {
+			cont++;
+			if (auxList.obj == elemento) {
+				devolver = cont;
+				break;
+			}
+			auxList = auxList.next;
+		}
+
+		return devolver;
+	}
+
+	// <------------------------------------------------------->
 	@Override
 	public int size() {
+		Container auxList = miLista;
 		int cont = 0;
-		for (Object ob : this) {
+		while (auxList != null) {
 			cont++;
+			auxList = auxList.next;
 		}
 		return cont;
 	}
 
+	// <------------------------------------------------------->
 	@Override
 	public void clear() {
-		for (Object ob : this) {
-			ob = null;
-		}
+		miLista = null;
 
 	}
 
+	// <------------------------------------------------------->
 	@Override
 	public boolean set(Object element, int posicion) {
-		int cont=0;
-		boolean devolver=false;
-		for(Object o:this) {
-			if(cont==posicion) {
-				o=element;
-				devolver= true;
-			}
+
+		Container auxList = miLista;
+		int cont = 0;
+		while (posicion != cont) {
+			auxList = auxList.next;
 			cont++;
 		}
-		return devolver;
+		auxList.obj = element;
+
+		return true;
 	}
 
+	// <------------------------------------------------------->
 	@Override
 	public Object get(int posicion) {
-		Object obj=null;
-		int cont=0;
-		for(Object o:this) {
-			if(cont==posicion) {
-				obj=o;
-			}
+		Container auxList = miLista;
+		int cont = -1;
+		while (auxList != null) {
 			cont++;
+			if (cont == posicion) {
+				obj = auxList.obj;
+				break;
+			}
+
+			auxList = auxList.next;
+
 		}
 		return obj;
 	}
 
+	// <------------------------------------------------------->
 	@Override
-	public Iterator iterator() {
-		// TODO Auto-generated method stub
-		return null;
+	public void mostrar() {
+		Container auxList = miLista;
+		int cont = -1;
+		while (auxList != null) {
+			cont++;
+			System.out.println(auxList.obj.toString());
+
+			auxList = auxList.next;
+
+		}
 	}
 
+	// <------------------------------------------------------->
 	private class Container {
-		Object obj=null;
+		Object obj = null;
 		Container next = null;
-	}
 
+		Container(Object obj, Container next) {
+			this.obj = obj;
+			this.next = next;
+
+		}
+
+	}
 
 }
