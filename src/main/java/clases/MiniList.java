@@ -60,5 +60,9 @@ public interface MiniList {
 	 * Devuelve el elemento de la posición que se pasa como parámetro
 	 */
 	public Object get(int posicion);
+
+	/**
+	 * Muestra la lista
+	 */
 	public void mostrar();
 }
