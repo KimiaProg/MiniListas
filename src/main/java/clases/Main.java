@@ -6,7 +6,7 @@ package clases;
 public class Main {
 
 	public static void main(String[] args) {
-		Persona persona= new Persona("Kimi","fdf",20);
+		Persona persona= new Persona("Kimia","fdf",20);
 		Persona persona2= new Persona("bb","fdf",20);
 		Persona persona3= new Persona("fggfdd","fdf",20);
 		Persona persona4= new Persona("nnnnn","fdf",20);

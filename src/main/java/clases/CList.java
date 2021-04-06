@@ -10,20 +10,18 @@ public class CList implements MiniList {
 	public boolean add(Object elemento) throws NullPointerException {
 		if (elemento == null) {
 			throw new NullPointerException();
+		}
+		if (miLista == null) {
+			miLista = new Container(elemento, miLista);
 		} else {
-			if (miLista == null) {
-				miLista = new Container(elemento, miLista);
-			} else {
-				Container auxList = miLista;
-				Container anteriorList = auxList;
-				while (auxList != null) {
-					anteriorList = auxList;
-					auxList = auxList.next;
-				}
-				anteriorList.next = new Container(elemento, null);
+			Container auxList = miLista;
+			while (auxList.next != null) {
+				auxList = auxList.next;
 			}
+			auxList.next = new Container(elemento, null);
 		}
 		return true;
+
 	}
 
 	// <------------------------------------------------------->
