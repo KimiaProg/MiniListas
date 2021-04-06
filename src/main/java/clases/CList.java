@@ -2,7 +2,6 @@ package clases;
 
 public class CList implements MiniList {
 
-	private Object obj = null;
 	private Container miLista = null;
 
 	// <------------------------------------------------------->
@@ -10,15 +9,16 @@ public class CList implements MiniList {
 	public boolean add(Object elemento) throws NullPointerException {
 		if (elemento == null) {
 			throw new NullPointerException();
-		}
-		if (miLista == null) {
-			miLista = new Container(elemento, miLista);
 		} else {
-			Container auxList = miLista;
-			while (auxList.next != null) {
-				auxList = auxList.next;
+			if (miLista == null) {
+				miLista = new Container(elemento, miLista);
+			} else {
+				Container auxList = miLista;
+				while (auxList.next != null) {
+					auxList = auxList.next;
+				}
+				auxList.next = new Container(elemento, null);
 			}
-			auxList.next = new Container(elemento, null);
 		}
 		return true;
 
@@ -29,12 +29,11 @@ public class CList implements MiniList {
 	public boolean contains(Object elemento) {
 		boolean devolver = false;
 		Container auxList = miLista;
-		while (auxList != null) {
-			if (auxList.obj == elemento) {
-				devolver = true;
-				break;
-			}
+		while (auxList.next != null && elemento != auxList.obj) {
 			auxList = auxList.next;
+		}
+		if (auxList.obj == elemento) {
+			devolver = true;
 		}
 		return devolver;
 	}
@@ -44,13 +43,21 @@ public class CList implements MiniList {
 	public boolean delete(Object elemento) {
 		Container auxList = miLista;
 		Container anteriorList = miLista;
-
-		while (elemento != auxList.obj) {
-			anteriorList = auxList;
-			auxList = auxList.next;
+		boolean devolver = false;
+		if (get(0) == elemento) {
+			miLista = miLista.next;
+			devolver = true;
+		} else {
+			while (auxList.next != null && elemento != auxList.obj) {
+				anteriorList = auxList;
+				auxList = auxList.next;
+			}
+			if (elemento == auxList.obj) {
+				anteriorList.next = auxList.next;
+				devolver = true;
+			}
 		}
-		anteriorList.next = auxList.next;
-		return true;
+		return devolver;
 	}
 
 	// <------------------------------------------------------->
@@ -58,32 +65,38 @@ public class CList implements MiniList {
 	public boolean delete(int posicion) {
 		Container auxList = miLista;
 		Container anteriorList = miLista;
-		int cont = 0;
-		while (posicion != cont) {
-			anteriorList = auxList;
-			auxList = auxList.next;
-			cont++;
+		boolean devolver = false;
+		if (posicion == 0) {
+			miLista = miLista.next;
+			devolver = true;
+		} else {
+			int cont = 0;
+			while (auxList != null && posicion != cont) {
+				anteriorList = auxList;
+				auxList = auxList.next;
+				cont++;
+			}
+			if (posicion == cont) {
+				anteriorList.next = auxList.next;
+				devolver = false;
+			}
 		}
-		anteriorList.next = auxList.next;
-		return true;
+		return devolver;
 	}
 
 	// <------------------------------------------------------->
 	@Override
 	public int posicion(Object elemento) {
-		int devolver = -1;
 		Container auxList = miLista;
-		int cont = -1;
-		while (auxList != null) {
+		int cont = 0;
+		while (auxList.next != null && auxList.obj != elemento) {
 			cont++;
-			if (auxList.obj == elemento) {
-				devolver = cont;
-				break;
-			}
 			auxList = auxList.next;
 		}
-
-		return devolver;
+		if (auxList.obj != elemento) {
+			cont = -1;
+		}
+		return cont;
 	}
 
 	// <------------------------------------------------------->
@@ -109,31 +122,32 @@ public class CList implements MiniList {
 	@Override
 	public boolean set(Object element, int posicion) {
 
+		boolean devolver = false;
 		Container auxList = miLista;
 		int cont = 0;
-		while (posicion != cont) {
-			auxList = auxList.next;
+		while (posicion != cont && auxList.next != null) {
 			cont++;
+			auxList = auxList.next;
 		}
-		auxList.obj = element;
-
-		return true;
+		if (posicion == cont) {
+			auxList.obj = element;
+			devolver = true;
+		}
+		return devolver;
 	}
 
 	// <------------------------------------------------------->
 	@Override
 	public Object get(int posicion) {
+		Object obj = null;
 		Container auxList = miLista;
 		int cont = -1;
-		while (auxList != null) {
+		while (auxList != null && obj == null) {
 			cont++;
 			if (cont == posicion) {
 				obj = auxList.obj;
-				break;
 			}
-
 			auxList = auxList.next;
-
 		}
 		return obj;
 	}

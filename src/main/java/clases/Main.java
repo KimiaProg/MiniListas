@@ -33,18 +33,19 @@ public class Main {
 			System.out.println("true");
 		}
 		
-		System.out.println(list.posicion(persona3));
-		System.out.println(list.contains(persona3));
+		System.out.println(list.posicion(persona4));
+		System.out.println(list.contains(persona4));
 		
 		list.mostrar();
-		list.delete(persona3);
 		System.out.println(list.size());
-		
+		list.delete(0);
 		System.out.println("");
 		
-		if(list.get(3)==persona3) {
+		list.set(persona3,1 );
+		if(list.get(1)==persona3) {
 			System.out.println("true");
 		}
+		
 		list.mostrar();
 		
 	}
